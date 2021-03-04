@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta</title>
+    <link rel="stylesheet" href="css/estiloT.css">
+</head>
+<body>
+    <h1>Consulta con vue.min.js</h1>
+    <div id="app" class="container">
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Telefono</th>
+            </thead>
+    
+            <tbody>
+                <tr v-for="data in all_data">
+                    <td>{{data.id}}</td>
+                    <td>{{data.name}}</td>
+                    <td>{{data.lastname}}</td>
+                    <td>{{data.phone}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+
+        <script>
+            var app=new Vue({
+                el: "#app",
+                data: {
+                    all_data:[]
+                },
+                created: function(){
+                    console.log("en proceso...");
+                    this.get_contactos();
+                },
+                methods: {
+                    get_contactos: function(){
+                        fetch("conexion.php")
+                        .then(respose=>respose.json())
+                        .then(json=>{this.all_data=json.contactos})
+                    }
+                }
+            });
+
+        </script>
+
+
+    <script src="js/vue.min.js"></script>
+</body>
+</html>
